@@ -33,6 +33,19 @@ for 100 days, you should have 100 lines in the csv file, plus 1 line at the begi
     - What percentage of the initial population survived?
     - Were we dealing with an epidemic or not?
 
+Randomness:
+------------
+Bear in mind what we covered in class on Monday. For randomness, you can use a few different approaches.
+In particular two methods from the random library are useful for us:
+```randint(a, b)``` will return a random integer between a and b, inclusive.
+
+```random()``` will return a random float between 0.0 and 1.0
+
+If you want to check if something happened with a 50% chance, simply call random(), and check if the number generated was
+above or below 0.5
+
+Recall as well that you need to have ```from random import *``` in any file you plan to use these functions.
+
 The disease class:
 -------------------
 The disease class is in fact quite simple, it will not have any methods, and simply track variables about the disease
@@ -64,12 +77,6 @@ Create a method for each of the next scenarios:
 - Determine if an infected person dies.
 - Determine if a healthy person becomes sick given another person as a parameter.
 
-**Step 3 - Preparing for R0:**
-Each Person should keep track of how many people they've made sick. Add a new attribute to the class, and let's call it 
-infection_count.
-
-In your method for infection, make sure that the sick person's infection_count is increased.
-
 The simulation
 --------------
 
@@ -91,14 +98,18 @@ Before your simulation begin, create a new csv file in your code, and write this
 Total population, Susceptible, Infected, Immune, Dead
 ```
 
+Every step through the simulation, write a new line to the file with the required info. Don't forget to close at the end!
+
 *Step 3 - Computing R0 and survival rate*
 By default, your simulation should run for 100 cycles. This is already set up in the provided code, where cs1_quit() is 
 called after 100 frames are drawn.
 
 You should compute the R0 value on cycle number 20. This means that when the global _day_ variable reaches 20, and only then,
-you should go through each sick person in your population, and check how many other people they've infected. Make sure to 
-store that information to display at the end of the simulation.
-
+you should do the following:
+- Add up all currently infected and deceased people, and substract the original number of infected.
+- Divide the number you obtained by the original number of infected. 
+- This should give you some positive number, which will tell us roughly how many people on average the initial infected 
+population infected. You should have at least 5 infected people at the beginning to make this work.
 
 Each cycle, write a new line with all the information suggested by the header. The idea is that you can easily upload such
 a file to a spreadsheet and get a nice graph of the evolution of each category over time.
